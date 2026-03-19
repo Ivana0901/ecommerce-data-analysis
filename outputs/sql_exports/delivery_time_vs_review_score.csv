@@ -1,0 +1,6 @@
+"delivery_time_bucket","total_orders","avg_delivery_days","avg_review_score"
+"0-3 days","6926","2.40","4.46"
+"4-7 days","23624","5.71","4.40"
+"8-14 days","37775","10.65","4.30"
+"15-21 days","16054","17.50","4.12"
+"22+ days","11445","31.34","3.06"
