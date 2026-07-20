@@ -173,6 +173,8 @@ WITH order_level AS (
     FROM vw_order_details
     WHERE order_status = 'delivered'
       AND order_item_id IS NOT NULL
+      AND order_purchase_timestamp >= TIMESTAMP '2017-01-01'
+      AND order_purchase_timestamp < TIMESTAMP '2018-09-01'
     GROUP BY order_id
 )
 SELECT

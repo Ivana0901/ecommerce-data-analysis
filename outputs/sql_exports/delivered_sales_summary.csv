@@ -1,3 +1,2 @@
-"customer_type","total_delivered_orders","total_reviewed_orders","avg_review_score","orders_with_delivery_data","avg_delivery_days"
-one_time,90315,89724,4.15,90307,12.49
-repeat,5896,5844,4.22,5896,12.23
+"delivered_orders","delivered_revenue","delivered_freight","delivered_total_value_including_freight","delivered_average_order_value"
+96211,13181027.13,2192092.88,15373120.01,137.00
