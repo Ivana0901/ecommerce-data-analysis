@@ -1,64 +1,59 @@
-\## Customer Overview
+# Customer Behavior Findings
 
-\- The dataset contains 96,096 unique customers across 99,440 total orders.
+## Reporting Scope
 
-\- The orders-per-customer ratio is 1.03, suggesting that most customers purchase once.
+- The analysis covers successfully delivered orders purchased from January 1, 2017 through August 31, 2018.
+- Customer-level calculations use `customer_unique_id`.
+- Review analysis excludes orders without review scores.
+- Delivery analysis excludes missing or negative delivery durations.
 
+## Customer Overview
 
+- The reporting period contains 96,211 delivered orders from 93,104 unique customers.
+- Customers placed an average of 1.03 delivered orders.
+- The low average indicates that most customers completed only one purchase during the reporting period.
 
-\## Repeat vs One-Time Customers
+## Repeat vs. One-Time Customers
 
-\- One-time customers account for 96.88% of the customer base.
+- One-time customers represented 97.00% of the customer base, totaling 90,315 customers.
+- Repeat customers represented only 3.00%, totaling 2,789 customers.
+- The low repeat customer rate suggests that customer retention is a major opportunity for improvement.
 
-\- Repeat customers account for 3.12%, indicating low repeat purchase behavior.
+## Orders per Customer
 
+- The average customer placed 1.03 delivered orders.
+- The highest observed purchase frequency was 15 delivered orders from a single customer.
+- The customer base is heavily concentrated among customers with only one order.
+- Only a small proportion of customers placed two or more orders.
 
+## Delivery Time vs. Review Score
 
-\## Orders per Customer
+- Customer satisfaction declined consistently as delivery time increased.
+- Orders delivered within 0–3 days received the highest average review score of 4.46.
+- Orders delivered within 4–7 days averaged 4.40.
+- Orders delivered within 8–14 days averaged 4.30.
+- Orders delivered within 15–21 days averaged 4.12.
+- Orders taking 22 days or longer received an average review score of only 3.05.
+- The results indicate a strong relationship between slower delivery and lower customer satisfaction.
 
-\- Customers placed an average of 1.03 orders.
+## Customer Experience by Customer Type
 
-\- The highest observed purchase frequency from a single customer was 17 orders.
+- One-time customers generated 90,315 delivered orders, while repeat customers generated 5,896 delivered orders.
+- Repeat customers gave a slightly higher average review score of 4.22, compared with 4.15 among one-time customers.
+- Repeat customers experienced an average delivery time of 12.23 days, compared with 12.49 days for one-time customers.
+- Although these differences are small, repeat customers experienced marginally faster delivery and reported slightly greater satisfaction.
 
+## Customer Geography
 
+- São Paulo accounted for 42.00% of all delivered orders.
+- Rio de Janeiro represented 12.79% of delivered orders.
+- Minas Gerais represented 11.76% of delivered orders.
+- The concentration of orders in a small number of states suggests that regional performance should be considered when evaluating delivery operations and customer growth opportunities.
 
-\## Orders per Customer Distribution
+## Business Interpretation
 
-\- The customer base is heavily concentrated in one-time buyers.
-
-\- Only a small share of customers placed two or more orders.
-
-\- This distribution confirms that repeat purchase behavior is relatively low.
-
-
-
-\## Delivery Time vs Review Score
-
-\- Customer satisfaction declines as delivery time increases.
-
-\- Orders delivered within 0–3 days had the highest average review score of 4.46.
-
-\- Review scores remained relatively strong for deliveries up to 14 days, but started to decline more noticeably beyond that point.
-
-\- Orders delivered in 22+ days had a much lower average review score of 3.06, indicating that long delivery times are strongly associated with worse customer experience.
-
-
-
-\## Review Score by Customer Type
-
-\- Repeat customers gave slightly higher average review scores than one-time customers.
-
-\- One-time customers had an average review score of 4.08, while repeat customers averaged 4.13.
-
-\- Although the gap is small, the result suggests that customers who return tend to report marginally better experiences.
-
-
-
-\## Delivery Time by Customer Type
-
-\- Repeat customers experienced slightly faster delivery times than one-time customers.
-
-\- One-time customers had an average delivery time of 12.51 days, compared with 12.24 days for repeat customers.
-
-\- The gap is small, but it is directionally consistent with the finding that repeat customers also reported slightly higher review scores.
-
+- Customer acquisition appears strong, but repeat purchase behavior is low.
+- Retention initiatives such as targeted follow-up campaigns, loyalty incentives, and personalized promotions could help increase repeat purchases.
+- Delivery speed is an important driver of customer satisfaction, especially when delivery exceeds 21 days.
+- Operational improvements focused on long delivery times may help improve review scores and customer retention.
+- Geographic concentration creates opportunities for region-specific marketing and delivery optimization.

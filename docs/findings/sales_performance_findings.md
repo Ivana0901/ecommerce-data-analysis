@@ -1,56 +1,38 @@
-\# Sales Performance Findings
+# Sales Performance Findings
 
+## Reporting Scope
 
+- The primary analysis covers orders purchased from January 1, 2017 through August 31, 2018.
+- Delivered orders are used for the main revenue and average order value KPIs.
+- Revenue represents product item value and excludes freight.
 
-\## Sales Summary
+## Sales Summary
 
-\- The dataset contains 99,441 orders.
+- The reporting period contains 99,092 total orders.
+- Of these, 96,211 orders were successfully delivered.
+- Delivered product revenue reached approximately 13.18M.
+- Average delivered order value was approximately 137.00.
+- Delivered orders represented 97.09% of all orders, showing that the large majority of purchases were successfully fulfilled.
 
-\- Total product revenue reached 13.59M, while total order value including freight reached 15.84M.
+## Monthly Sales Trend
 
-\- Freight accounted for 14.21% of total order value.
+- Delivered revenue grew strongly throughout 2017 and reached its highest level in November 2017.
+- Sales remained comparatively strong during 2018, followed by a slight decline toward the end of the reporting period.
+- August 2018 delivered revenue decreased by 3.38% compared with July 2018.
+- Average order value remained relatively stable, indicating that changes in monthly revenue were driven mainly by changes in order volume rather than major changes in customer spending per order.
 
-\- Average order value was 137.75.
+## Order Status
 
+- Delivered orders accounted for 97.09% of all orders.
+- Shipped orders represented 1.11% of orders.
+- Unavailable orders represented 0.61%.
+- Canceled orders represented 0.59%.
+- Processing and invoiced orders each represented approximately 0.30%.
+- The low proportion of canceled and unavailable orders indicates strong overall fulfillment performance.
 
+## Business Interpretation
 
-\## Monthly Sales Trend
-
-\- Revenue showed strong growth throughout 2017, with a peak in November 2017.
-
-\- Sales remained strong in early 2018, followed by a more stable monthly pattern.
-
-\- Average order value remained relatively stable, suggesting that revenue growth was driven primarily by order volume rather than major changes in basket size.
-
-
-
-\## Order Status
-
-\- Delivered orders accounted for 97.02% of all orders.
-
-\- Canceled and unavailable orders represented only a small share of total volume.
-
-\- Overall, the order status distribution suggests strong fulfillment performance.
-
-
-
-\## Delivered Orders View
-
-\- Delivered orders accounted for 96,478 out of 99,441 total orders, confirming that the vast majority of orders were successfully fulfilled.
-
-\- Delivered revenue reached 13.22M, representing approximately 97.28% of total revenue.
-
-\- Delivered average order value was 137.04, which is very close to the overall average order value of 137.75.
-
-\- The delivered-only monthly trend closely mirrors the overall sales trend, indicating that non-completed orders do not materially distort the main revenue pattern.
-
-
-
-\## Delivered Monthly Trend
-
-\- The delivered-orders trend confirms strong revenue growth throughout 2017, with a clear peak in November 2017.
-
-\- Sales remained strong in early 2018, followed by a relatively stable monthly pattern.
-
-\- Since delivered-order performance closely matches the overall trend, the core sales story appears operationally reliable.
-
+- The company successfully delivered almost all orders placed during the reporting period.
+- Monthly revenue performance was driven primarily by order volume because average order value remained comparatively stable.
+- The November 2017 sales peak may reflect seasonal demand and should be investigated further in the Python and Power BI stages.
+- Product value associated with canceled, unavailable, or incomplete orders is not treated as finalized revenue.
