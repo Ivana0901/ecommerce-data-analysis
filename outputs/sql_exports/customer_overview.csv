@@ -1,2 +1,2 @@
-"total_orders","unique_customers","orders_per_customer_ratio"
-"99441","96096","1.03"
+"total_delivered_orders","unique_customers","avg_delivered_orders_per_customer"
+96211,93104,1.03
