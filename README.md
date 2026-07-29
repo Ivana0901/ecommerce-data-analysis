@@ -1,83 +1,285 @@
 # Brazilian E-Commerce Analysis | Olist Dataset
 
-## Project Overview
-This project is a portfolio-style end-to-end Data Analyst case study built on the **Brazilian E-Commerce Public Dataset by Olist** from Kaggle.
+An end-to-end Data Analyst portfolio project using **PostgreSQL, SQL, Python, pandas, statistical analysis, and data visualisation** to evaluate sales performance, customer behaviour, delivery performance, customer satisfaction, and geographic trends.
 
-The goal is to simulate a real-world business analysis for an e-commerce company and generate insights into:
+The project is based on the Brazilian E-Commerce Public Dataset by Olist.
 
-- sales performance
-- customer behavior
-- product performance
-- geographic trends
+## Project Status
 
-## Tools Used
-- **PostgreSQL** – database design, validation, SQL analysis
-- **Python** – data analysis and visualization
-- **Power BI** – dashboarding and business storytelling
-- **Git/GitHub** – version control and project documentation
+| Project stage | Status |
+|---|---|
+| PostgreSQL database setup | Complete |
+| SQL data validation and analysis | Complete |
+| Python exploratory and statistical analysis | Complete |
+| Power BI dashboard | Planned |
 
-## Dataset
-Source: Brazilian E-Commerce Public Dataset by Olist (Kaggle)
+**Main analysis notebook:** [`notebooks/01_ecommerce_analysis.ipynb`](notebooks/01_ecommerce_analysis.ipynb)
 
-Main tables used:
+## Business Objective
+
+The purpose of this project is to simulate a real-world e-commerce analysis and answer the following business questions:
+
+- How much revenue did delivered orders generate?
+- What does the order-value distribution reveal about customer spending?
+- How important are repeat customers?
+- How concentrated is revenue among high-value customers?
+- How does delivery performance relate to customer review scores?
+- Which customer states generate the most orders and revenue?
+- Which operational issues represent the greatest customer-experience risk?
+
+## Dataset and Analytical Scope
+
+**Dataset:** Brazilian E-Commerce Public Dataset by Olist
+
+The dataset contains information about:
+
 - orders
 - customers
-- order_items
+- order items
 - products
 - sellers
-- order_payments
-- order_reviews
-- geolocation
-- product_category_name_translation
+- payments
+- customer reviews
+- product categories
+- customer and seller locations
+
+### Primary reporting rules
+
+- Reporting period: **1 January 2017 to 31 August 2018**
+- Primary KPIs include **delivered orders only**
+- Product revenue excludes freight unless explicitly stated
+- Review records are aggregated to one result per order
+- Customer behaviour is analysed using `customer_unique_id`
+- Delivery duration is measured in calendar days
+
+## Tools and Skills Demonstrated
+
+- **PostgreSQL** — database schema, validation, views, joins, aggregations, and business analysis
+- **SQL** — data-quality checks, analytical queries, customer segmentation, delivery analysis, and CSV exports
+- **Python** — reusable analytical datasets, validation, descriptive statistics, segmentation, and reconciliation
+- **pandas and NumPy** — transformation, aggregation, merging, bucketing, and outlier classification
+- **Matplotlib and Seaborn** — portfolio-ready data visualisations
+- **SciPy** — Pearson and Spearman correlation analysis
+- **Jupyter Notebook** — documented and reproducible analytical workflow
+- **Git and GitHub** — version control and project documentation
+- **Power BI** — planned dashboard and business storytelling stage
 
 ## Project Workflow
 
-### 1. Database Setup
-- Imported all Olist tables into PostgreSQL
-- Validated core relationships between tables
+### 1. PostgreSQL database setup
 
-### 2. Data Quality Checks
-Completed the following checks and fixes:
+- Created the relational database structure
+- Imported the Olist CSV files
+- Verified row counts and table relationships
+- Created reusable clean views
 
-- Verified key joins across major tables
-- Resolved missing product category translations
-- Handled missing product categories through a clean view
-- Resolved review table grain inconsistency by aggregating to order level
-- Investigated geolocation grain and documented it as a dataset characteristic
+### 2. Data-quality analysis
 
-### 3. Clean Views Created
-- `vw_products_clean`
-- `vw_order_reviews_clean`
+The project investigated and documented:
 
-### 4. Final Analytical View
-- `vw_order_details`
+- primary-key and duplicate-row behaviour
+- table grain and join relationships
+- orders without associated order items
+- multiple review records for the same order
+- missing product categories
+- non-unique geolocation prefixes
+- missing delivery dates
+- customers associated with multiple states
+- extreme order values and delivery durations
 
-This view combines:
-- orders
-- customers
-- order_items
-- products
-- sellers
-- review metrics
+### 3. SQL analysis
 
-## Key Data Quality Notes
+SQL was used to calculate and export:
 
-### Product category translation issue
-Two product categories were missing from the translation table and were manually added.
+- delivered-order revenue
+- average order value
+- monthly sales trends
+- order-status distribution
+- one-time and repeat-customer behaviour
+- review-score distribution
+- delivery time versus customer reviews
+- customer and geographic summaries
 
-### Missing product categories
-610 products had missing categories. Since these products were actually sold and represented approximately **1.32% of sales**, they were retained and mapped to `unknown_category` in `vw_products_clean`.
+The resulting CSV files are stored in:
 
-### Review table grain issue
-The `order_reviews` table did not always contain one row per order.  
-A clean aggregated view was created to ensure one row per order with:
-- review_count
-- avg_review_score
-- min_review_score
-- max_review_score
+```text
+outputs/sql_exports/
+```
 
-### Geolocation note
-`geolocation_zip_code_prefix` is not unique, so geolocation cannot be treated as a standard dimension table with a one-to-one key relationship.
+### 4. Python analysis
+
+Python independently rebuilt the main analytical datasets from the raw tables.
+
+The Python results were reconciled with the SQL outputs to confirm that:
+
+- filters were applied consistently
+- joins did not duplicate orders
+- revenue totals matched
+- customer totals matched
+- geographic summaries matched
+- analytical datasets preserved the intended grain
+
+The notebook finishes with automated reproducibility and integrity checks.
+
+## Executive KPI Summary
+
+| KPI | Result |
+|---|---:|
+| Delivered orders | 96,211 |
+| Unique customers | 93,104 |
+| Product revenue | BRL 13,181,027.13 |
+| Revenue including freight | BRL 15,373,120.01 |
+| Average order value | BRL 137.00 |
+| Median order value | BRL 86.50 |
+| Repeat-customer rate | 3.00% |
+| Median delivery time | 10 days |
+| Orders delivered early | 91.87% |
+| Late-delivery rate | 6.79% |
+| Average review score for early deliveries | 4.30 |
+| Average review score for late deliveries | 2.27 |
+
+## Key Findings
+
+### 1. Order revenue was strongly right-skewed
+
+The average product revenue per delivered order was **BRL 137.00**, while the median was only **BRL 86.50**.
+
+This difference shows that a smaller number of expensive orders increased the average.
+
+High-value orders represented only **7.93% of delivered orders**, but they generated **36.60% of total product revenue**.
+
+### 2. Repeat purchasing was limited
+
+Only **3.00% of customers** placed more than one delivered order during the reporting period.
+
+Repeat customers represented:
+
+- 3.00% of customers
+- 6.13% of orders
+- 5.50% of product revenue
+
+Repeat customers generated more revenue per customer because they purchased more frequently, not because their individual orders were larger.
+
+### 3. Customer revenue was concentrated
+
+The highest-value:
+
+- 1% of customers generated 11.48% of product revenue
+- 5% generated 29.14%
+- 10% generated 41.10%
+- 20% generated 56.62%
+
+Most of the ten highest-revenue customers were one-time customers. High customer value was therefore often driven by a single expensive purchase rather than repeated purchasing.
+
+### 4. Delivery performance was strongly associated with customer satisfaction
+
+Orders delivered early received an average review score of **4.30**, compared with only **2.27** for late deliveries.
+
+The low-review rate increased as delivery time increased:
+
+| Delivery time | Average review | Low-review rate |
+|---|---:|---:|
+| 0–3 days | 4.46 | 7.03% |
+| 4–7 days | 4.40 | 7.69% |
+| 8–14 days | 4.30 | 9.04% |
+| 15–21 days | 4.12 | 12.11% |
+| 22+ days | 3.05 | 40.03% |
+
+Pearson and Spearman analyses also identified negative associations between delivery time and review score:
+
+- Pearson correlation: **-0.3345**
+- Spearman correlation: **-0.2350**
+
+### 5. Extremely long deliveries represented the clearest customer-experience risk
+
+Long-delivery outliers had:
+
+- an average delivery time of approximately 41 days
+- an average review score of approximately 2.26
+- a low-review rate above 62%
+
+High-value orders delivered within the normal delivery range performed substantially better, with an average review score of 4.16.
+
+This indicates that unusually long delivery was more strongly associated with dissatisfaction than high order value alone.
+
+### 6. Revenue was geographically concentrated
+
+São Paulo generated:
+
+- approximately 42% of delivered orders
+- 38.36% of product revenue
+- BRL 5.06 million in product revenue
+
+The top three states—São Paulo, Rio de Janeiro, and Minas Gerais—generated **63.40% of product revenue**.
+
+The top five states generated **73.95%**.
+
+São Paulo's position was primarily driven by order and customer volume rather than high average order value.
+
+## Visual Highlights
+
+### Order-Value Distribution
+
+The distribution is right-skewed, with a smaller number of high-value orders pulling the mean above the median.
+
+![Order-value distribution](outputs/figures/order_value_distribution.png)
+
+### Customer Revenue Concentration
+
+The top 10% of customers generated 41.10% of product revenue.
+
+![Customer revenue concentration](outputs/figures/customer_revenue_concentration.png)
+
+### Low-Review Rate by Delivery Time
+
+The low-review rate increased sharply for orders taking 22 days or more.
+
+![Low-review rate by delivery time](outputs/figures/delivery_time_vs_low_review_rate.png)
+
+### Top States by Product Revenue
+
+São Paulo was the dominant customer market by total product revenue.
+
+![Top states by product revenue](outputs/figures/state_product_revenue_top10.png)
+
+### State Delivery and Review Performance
+
+Major states with longer average delivery times generally also showed weaker average review performance.
+
+![State delivery time and review score](outputs/figures/state_delivery_vs_review_score.png)
+
+## Business Recommendations
+
+### 1. Prioritise orders approaching the longest delivery segment
+
+Orders approaching 22 days should be flagged for proactive tracking, customer communication, and operational escalation.
+
+### 2. Create a specialised recovery process for high-value delayed orders
+
+Orders classified as both high-value and long-delivery represented only 0.56% of delivered orders but generated 2.64% of product revenue.
+
+These customers should receive priority support and proactive status updates.
+
+### 3. Convert high-value one-time customers into repeat customers
+
+Personalised follow-up offers, loyalty incentives, and relevant product recommendations could encourage valuable one-time purchasers to make a second purchase.
+
+### 4. Improve delivery performance in large underperforming markets
+
+Rio de Janeiro was the second-largest revenue market but had longer average delivery times and weaker review performance than São Paulo.
+
+Operational improvements in a large market could affect a substantial number of customers.
+
+### 5. Monitor distribution and extreme cases, not only averages
+
+Management reporting should include:
+
+- median delivery time
+- 90th and 95th delivery-time percentiles
+- late-delivery rate
+- low-review rate
+- number of long-delivery outliers
+- number of high-value delayed orders
 
 ## Repository Structure
 
@@ -85,8 +287,88 @@ A clean aggregated view was created to ensure one row per order with:
 ecommerce-data-analysis/
 │
 ├── data/
-├── sql/
+│   └── raw/                         # Original Olist CSV files
+│
+├── docs/                            # Supporting project documentation
+│
 ├── notebooks/
-├── powerbi/
-├── images/
+│   └── 01_ecommerce_analysis.ipynb # Complete Python analysis
+│
+├── outputs/
+│   ├── figures/                     # Python visualisations
+│   └── sql_exports/                 # SQL query outputs
+│
+├── powerbi/                         # Planned Power BI dashboard
+│
+├── sql/
+│   ├── 01_schema.sql
+│   ├── 02_data_quality.sql
+│   ├── 03_data_quality.sql
+│   ├── 04_views.sql
+│   └── 05_analysis/                 # Business-analysis queries
+│
+├── .gitignore
+├── requirements.txt
 └── README.md
+```
+
+## Running the Python Analysis
+
+From the project root:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Open:
+
+```text
+notebooks/01_ecommerce_analysis.ipynb
+```
+
+Select the project `.venv` kernel, restart the kernel, and run all cells from top to bottom.
+
+The notebook reads the raw CSV files from:
+
+```text
+data/raw/
+```
+
+and saves charts to:
+
+```text
+outputs/figures/
+```
+
+## Key Methodological Notes
+
+- One row in `orders_analytical` represents one order.
+- Order items are aggregated before order-level customer and delivery analysis.
+- Multiple review records are aggregated to one average result per order.
+- Eight delivered orders were missing a valid customer-delivery date.
+- Only 36 customers, or 0.0387%, appeared in more than one state.
+- Statistical outliers were retained unless there was evidence that they were invalid or duplicated.
+- SQL and Python results were independently calculated and reconciled.
+
+## Limitations
+
+- The analysis identifies associations but does not prove causation.
+- Product quality, seller performance, incorrect items, and customer-service issues may also affect review scores.
+- Repeat behaviour is measured only within the available reporting period.
+- Delivery duration is measured in calendar days rather than business days.
+- Customer state is based on order delivery-address data.
+- State-level averages simplify variation between individual customers, products, sellers, and municipalities.
+
+## Next Phase
+
+The next stage of the project is to create a **Power BI dashboard** presenting:
+
+- executive KPIs
+- sales trends
+- customer segments
+- delivery performance
+- customer satisfaction
+- geographic performance
+- interactive business filters
