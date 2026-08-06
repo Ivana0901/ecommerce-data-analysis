@@ -1,6 +1,6 @@
 # Brazilian E-Commerce Analysis | Olist Dataset
 
-An end-to-end Data Analyst portfolio project using **PostgreSQL, SQL, Python, pandas, statistical analysis, and data visualisation** to evaluate sales performance, customer behaviour, delivery performance, customer satisfaction, and geographic trends.
+An end-to-end Data Analyst portfolio project using **PostgreSQL, SQL, Python, pandas, statistical analysis, data visualisation, and Power BI** to evaluate sales performance, customer behaviour, delivery performance, customer satisfaction, and geographic trends.
 
 The project is based on the Brazilian E-Commerce Public Dataset by Olist.
 
@@ -11,7 +11,7 @@ The project is based on the Brazilian E-Commerce Public Dataset by Olist.
 | PostgreSQL database setup | Complete |
 | SQL data validation and analysis | Complete |
 | Python exploratory and statistical analysis | Complete |
-| Power BI dashboard | Planned |
+| Power BI dashboard | Complete |
 
 **Main analysis notebook:** [`notebooks/01_ecommerce_analysis.ipynb`](notebooks/01_ecommerce_analysis.ipynb)
 
@@ -62,7 +62,7 @@ The dataset contains information about:
 - **SciPy** — Pearson and Spearman correlation analysis
 - **Jupyter Notebook** — documented and reproducible analytical workflow
 - **Git and GitHub** — version control and project documentation
-- **Power BI** — planned dashboard and business storytelling stage
+- **Power BI** — Power Query transformations, star-schema data modelling, DAX measures, interactive dashboards, slicers, tooltips, and page navigation
 
 ## Project Workflow
 
@@ -120,6 +120,92 @@ The Python results were reconciled with the SQL outputs to confirm that:
 - analytical datasets preserved the intended grain
 
 The notebook finishes with automated reproducibility and integrity checks.
+
+## Power BI Dashboard
+
+The final Power BI report presents the validated SQL and Python results through an
+interactive business-intelligence dashboard.
+
+Power BI Desktop was used for:
+
+- Power Query transformations and analytical table preparation
+- order-level and item-level fact tables
+- reusable customer, product, geography, and date dimensions
+- one-to-many, single-direction model relationships
+- DAX measures for revenue, customers, delivery, and review performance
+- slicers, tooltips, cross-filtering, and page navigation
+- reconciliation of dashboard KPIs with the completed SQL and Python analyses
+
+### Data Model
+
+The report uses a star-schema-style analytical model:
+
+- `FactOrders` — one row per order for revenue, customer, delivery, and review KPIs
+- `FactOrderItems` — one row per order item for product-category analysis
+- `DimCustomer` — customer attributes and one-time/repeat segmentation
+- `DimProduct` — product and translated category attributes
+- `DimGeography` — one row per Brazilian state
+- `DimDate` — calendar attributes used for monthly analysis
+- `DeliveryStatus` — disconnected helper table for Early, On time, and Late categories
+- `00_Measures` — dedicated table containing the report's DAX measures
+
+The dashboard retains separate order and order-item fact tables so that order-level
+KPIs are not duplicated when products are analysed at item grain.
+
+### Dashboard Pages
+
+#### 1. Executive Overview
+
+The overview presents headline KPIs, monthly revenue and delivered-order trends,
+and the highest-revenue customer states.
+
+![Executive Overview](powerbi/screenshots/01_executive_overview.png)
+
+#### 2. Sales and Customer Analysis
+
+This page compares one-time and repeat customers and ranks the ten strongest
+product categories by product revenue.
+
+![Sales and Customer Analysis](powerbi/screenshots/02_sales_customers.png)
+
+#### 3. Delivery Performance and Customer Satisfaction
+
+This page compares early, on-time, and late deliveries and demonstrates the
+relationship between delivery performance and customer review scores.
+
+![Delivery Performance and Customer Satisfaction](powerbi/screenshots/03_delivery_reviews.png)
+
+#### 4. Geographic Performance
+
+This page compares state revenue with late-delivery performance and includes an
+interactive state slicer.
+
+![Geographic Performance](powerbi/screenshots/04_geographic_performance.png)
+
+#### Interactive State-Filter Example
+
+Selecting São Paulo updates the KPI cards, state ranking, and scatter chart to
+show only the selected state's results.
+
+![São Paulo Filtered Dashboard](powerbi/screenshots/05_geography_sp_filtered.png)
+
+### DAX Measure Groups
+
+The model includes measures for:
+
+- delivered orders and unique customers
+- product revenue, freight, and total order value
+- average and median order value
+- one-time and repeat customers
+- repeat-customer rate
+- category revenue, orders, and unique customers
+- average and median delivery duration
+- early, on-time, and late delivery counts and rates
+- average review score by delivery status
+- geographic revenue and delivery performance
+
+All headline Power BI measures were reconciled with the completed SQL and Python
+results before the dashboard pages were created.
 
 ## Executive KPI Summary
 
@@ -298,7 +384,14 @@ ecommerce-data-analysis/
 │   ├── figures/                     # Python visualisations
 │   └── sql_exports/                 # SQL query outputs
 │
-├── powerbi/                         # Planned Power BI dashboard
+├── powerbi/
+│   ├── Olist_Ecommerce_Report.pbix  # Interactive Power BI report
+│   └── screenshots/
+│       ├── 01_executive_overview.png
+│       ├── 02_sales_customers.png
+│       ├── 03_delivery_reviews.png
+│       ├── 04_geographic_performance.png
+│       └── 05_geography_sp_filtered.png
 │
 ├── sql/
 │   ├── 01_schema.sql
@@ -361,14 +454,16 @@ outputs/figures/
 - Customer state is based on order delivery-address data.
 - State-level averages simplify variation between individual customers, products, sellers, and municipalities.
 
-## Next Phase
+## Opening the Power BI Report
 
-The next stage of the project is to create a **Power BI dashboard** presenting:
+The completed report is stored at:
 
-- executive KPIs
-- sales trends
-- customer segments
-- delivery performance
-- customer satisfaction
-- geographic performance
-- interactive business filters
+`powerbi/Olist_Ecommerce_Report.pbix`
+
+Open the file with Power BI Desktop.
+
+The screenshots in `powerbi/screenshots/` allow the report pages to be reviewed
+directly on GitHub without opening the PBIX file.
+
+Refreshing the report from its original source requires access to the project's
+PostgreSQL database and the relevant local connection credentials.
